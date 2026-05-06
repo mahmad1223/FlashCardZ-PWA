@@ -3,13 +3,13 @@
   "name": "FlashCardZ - Smart SRS Learning",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3407/3407024.png",
+      "src": "FlashCardZ.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3407/3407024.png",
+      "src": "FlashCardZ.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any"
