@@ -1,4 +1,4 @@
-const CACHE_NAME = 'flashcardz-v3';
+const CACHE_NAME = 'flashcardz-v4';
 const assets = [
 './',
 './index.html',
