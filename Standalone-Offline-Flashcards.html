@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Flashcards App</title>
 
+  <!-- 🌟 PWA LINKS YAHAN HAIN 🌟 -->
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1e293b">
+<link rel="apple-touch-icon" href="FlashCardZ.png">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js');
+    });
+  }
+</script>
+  <!-- 🌟 PWA LINKS KHATAM 🌟 -->
+  
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
