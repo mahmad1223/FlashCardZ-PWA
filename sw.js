@@ -1,4 +1,4 @@
-const CACHE_NAME = 'flashcardz-v7';
+const CACHE_NAME = 'flashcardz-v8';
 const assets = [
   './',
   './index.html',
@@ -15,36 +15,50 @@ const assets = [
   'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js'
 ];
 
-// Install Event: Har file ko alag alag cache karein
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('Installing new cache...');
+      console.log('Caching essential assets...');
       return Promise.allSettled(
-        assets.map(url => {
-          return cache.add(url).catch(err => console.log('Failed to cache:', url, err));
+        assets.map(async (url) => {
+          try {
+            const response = await fetch(url, { mode: 'no-cors' }); // External CDNs ke liye zaroori hai
+            return await cache.put(url, response);
+          } catch (err) {
+            console.error('Failed to cache:', url, err);
+          }
         })
       );
     })
   );
 });
 
-// Activate Event: Purana cache delete karein
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-      );
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) return cachedResponse;
+
+      return fetch(event.request).then((networkResponse) => {
+        // Agar koi nayi file milay toh usey bhi cache mein dal dein
+        if (event.request.url.startsWith('http')) {
+          return caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          });
+        }
+        return networkResponse;
+      }).catch(() => {
+        // Bilkul hi kuch na milay (Offline)
+        return caches.match('./index.html');
+      });
     })
   );
 });
 
-// Fetch Event: Pehle cache check karein, phir network
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)));
     })
   );
 });
