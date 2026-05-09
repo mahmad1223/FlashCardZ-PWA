@@ -1,11 +1,10 @@
-const CACHE_NAME = 'flashcardz-v6'; // Version badalna mat bhooliye ga!
+const CACHE_NAME = 'flashcardz-v7';
 const assets = [
   './',
   './index.html',
   './manifest.json',
   './favicon.ico',
   './FlashCardZ.png',
-  // External CDNs ko bhi cache mein shamil karein
   'https://cdn.tailwindcss.com',
   'https://unpkg.com/react@18/umd/react.production.min.js',
   'https://unpkg.com/react-dom@18/umd/react-dom.production.min.js',
@@ -16,15 +15,21 @@ const assets = [
   'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js'
 ];
 
+// Install Event: Har file ko alag alag cache karein
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('Caching all assets...');
-      return cache.addAll(assets);
+      console.log('Installing new cache...');
+      return Promise.allSettled(
+        assets.map(url => {
+          return cache.add(url).catch(err => console.log('Failed to cache:', url, err));
+        })
+      );
     })
   );
 });
 
+// Activate Event: Purana cache delete karein
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
@@ -35,6 +40,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// Fetch Event: Pehle cache check karein, phir network
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
