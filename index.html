@@ -58,6 +58,31 @@
   <div id="root"></div>
 
   <script type="text/babel">
+    // 🛡️ Safety Guards - Agar library nahi mili toh app crash nahi hogi
+    const { useState, useEffect, useRef, useMemo, useCallback } = React;
+    const { createPortal } = ReactDOM;
+    
+    // Fallbacks check karein
+    const motion = window.Motion ? window.Motion.motion : null;
+    const AnimatePresence = window.Motion ? window.Motion.AnimatePresence : null;
+    const Lucide = window.LucideReact || {};
+
+    const { 
+      CheckCircle2, ChevronRight, ChevronDown, ChevronUp, RotateCcw, ArrowLeft, Search, Copy,
+      X, Settings, Undo2, RefreshCw, Cloud 
+    } = Lucide;
+
+    function App() {
+      // Splash hide karne wala code
+      useEffect(() => {
+        const splash = document.getElementById('splash');
+        if (splash) {
+          splash.style.opacity = '0';
+          setTimeout(() => splash.remove(), 300);
+        }
+      }, []);
+
+      // Baki ka purana App code yahan se continue karein...
     const { useState, useEffect, useRef, useMemo, useCallback } = React;
     const { createPortal } = ReactDOM;
     const { motion, AnimatePresence, useMotionValue, useTransform } = window.Motion;
