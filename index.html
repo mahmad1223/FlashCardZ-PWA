@@ -21,7 +21,7 @@
   <script src="./tailwind.min.js"></script>
   <script src="./react.production.min.js"></script>
   <script src="./react-dom.production.min.js"></script>
-  <script src="./babel.min.js"></script>
+  <script src="./"></script>
 
   <script src="https://unpkg.com/framer-motion@11.18.2/dist/framer-motion.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/lucide-react@0.344.0/dist/umd/lucide-react.min.js" crossorigin="anonymous"></script>
@@ -49,6 +49,12 @@
   </style>
 </head>
 <body style="background-color: #1e293b;">
+ <body class="bg-gray-950 text-white min-h-screen">
+  <div id="splash" style="position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#030712; color:#6366f1; font-family:system-ui; z-index:9999; transition:opacity 0.3s;">
+    <p style="font-size:1.8rem; font-weight:bold; letter-spacing: 0.05em;">FlashCardZ ⚡</p>
+    <p style="font-size:0.85rem; color:#4b5563; margin-top:0.6rem; font-weight:500;" id="splash-status">Loading offline engine...</p>
+  </div>
+
   <div id="root"></div>
 
   <script type="text/babel">
