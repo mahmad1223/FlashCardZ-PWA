@@ -3,45 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flashcards App</title>
+  <title>FlashCardZ</title>
 
-  <!-- 🌟 PWA LINKS YAHAN HAIN 🌟 -->
-  <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#1e293b">
-<link rel="apple-touch-icon" href="FlashCardZ.png">
-<link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#1e293b">
+  <link rel="apple-touch-icon" href="./FlashCardZ.png">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
 
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js');
-    });
-  }
-</script>
-  <!-- 🌟 PWA LINKS KHATAM 🌟 -->
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        // Updated path for GitHub Pages
+        navigator.serviceWorker.register('./sw.js');
+      });
+    }
+  </script>
+  <script src="./tailwind.min.js"></script>
+  <script src="./react.production.min.js"></script>
+  <script src="./react-dom.production.min.js"></script>
+  <script src="./babel.min.js"></script>
 
-  <!-- React & ReactDOM -->
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script>window.react = window.React;</script>
-
-  <!-- Babel for JSX -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-  <!-- Framer Motion -->
-  <script src="https://unpkg.com/framer-motion@11.18.2/dist/framer-motion.js"></script>
-
-  <!-- Lucide React Icons -->
-  <script src="https://unpkg.com/lucide-react@0.344.0/dist/umd/lucide-react.min.js"></script>
-
-  <!-- KaTeX -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://unpkg.com/framer-motion@11.18.2/dist/framer-motion.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/lucide-react@0.344.0/dist/umd/lucide-react.min.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" crossorigin="anonymous" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" crossorigin="anonymous"></script>
 
   <style>
+    /* Splash screen transition */
+    #splash.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
     @keyframes pulse-glow {
       0%, 100% {
         box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
