@@ -13,11 +13,11 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        // Updated path for GitHub Pages
         navigator.serviceWorker.register('./sw.js');
       });
     }
   </script>
+
   <script src="./tailwind.min.js"></script>
   <script src="./react.production.min.js"></script>
   <script src="./react-dom.production.min.js"></script>
@@ -462,6 +462,14 @@ function SettingsSection({ title, sectionKey, currentTheme, draftSettings, setDr
     </div>);
 }
 function App() {
+  useEffect(() => {
+      const splash = document.getElementById('splash');
+      if (splash) {
+        splash.classList.add('fade-out');
+        setTimeout(() => splash.remove(), 300);
+      }
+    }, []);
+  
     const [screen, setScreen] = useState("home");
     const [direction, setDirection] = useState("right");
     const [reviewConfigOpen, setReviewConfigOpen] = useState(false);
